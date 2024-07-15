@@ -5,6 +5,7 @@ import 'package:flutter_application_1/app/page/history/history_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_application_1/mainpage.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);
@@ -23,8 +24,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Order History"),
+        title: const Text("Lịch sử mua hàng"),
         backgroundColor: Colors.deepOrange,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const Mainpage()),
+            );
+          },
+        ),
       ),
       body: FutureBuilder<List<BillModel>>(
         future: _getBills(),
@@ -37,7 +47,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(
               child: Text(
-                'No orders found',
+                'Không có lịch sử',
                 style: TextStyle(fontSize: 18, color: Colors.grey),
               ),
             );

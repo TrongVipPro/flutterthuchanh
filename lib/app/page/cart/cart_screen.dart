@@ -17,8 +17,7 @@ class _CartScreenState extends State<CartScreen> {
  Future<List<Cart>> _getProducts() async {
   List<Cart> products = await _databaseService.products();
   print("Cart items: ${products.map((e) => e.toJson()).toList()}");
-    // return await _databaseService.products();
-    return products;
+    return await _databaseService.products();
   }
 
   @override

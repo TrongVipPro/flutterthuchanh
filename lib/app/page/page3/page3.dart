@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_application_1/app/data/sqlite.dart';
 import 'package:flutter_application_1/app/model/bill.dart';
 import 'package:flutter_application_1/app/model/cart.dart';
-
+import 'package:flutter_application_1/mainpage.dart';
 class Page3 extends StatefulWidget {
   const Page3({Key? key}) : super(key: key);
 
@@ -69,6 +69,15 @@ class _Page3State extends State<Page3> {
       appBar: AppBar(
         title: const Text('Tạo Hóa Đơn'),
         backgroundColor: Colors.deepOrange,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const Mainpage()),
+            );
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

@@ -5,7 +5,7 @@ import 'package:flutter_application_1/app/model/product.dart';
 import 'package:flutter_application_1/app/model/register.dart';
 import 'package:flutter_application_1/app/model/user.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class API {

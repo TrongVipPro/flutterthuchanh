@@ -1,5 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
-// import 'dart:io';
 import 'package:flutter_application_1/app/data/api.dart';
 import 'package:flutter_application_1/app/data/sqlite.dart';
 import 'package:flutter_application_1/app/model/cart.dart';
@@ -13,8 +11,8 @@ class HomeBuilder extends StatefulWidget {
 
   @override
   State<HomeBuilder> createState() => _HomeBuilderState();
-  
 }
+
 class _HomeBuilderState extends State<HomeBuilder> {
   final DatabaseHelper _databaseService = DatabaseHelper();
 
@@ -33,7 +31,7 @@ class _HomeBuilderState extends State<HomeBuilder> {
         price: pro.price,
         img: pro.imageUrl,
         count: 1);
-      print("Sản phẩm : ${cartItem.toJson()}");
+    print("Sản phẩm : ${cartItem.toJson()}");
     await _databaseService.insertProduct(cartItem);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Đã thêm ${pro.name} vào giỏ hàng')),
@@ -148,4 +146,3 @@ class _HomeBuilderState extends State<HomeBuilder> {
     );
   }
 }
-
