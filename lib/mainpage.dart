@@ -5,8 +5,9 @@ import 'package:flutter_application_1/app/page/category/category_list.dart';
 import 'package:flutter_application_1/app/page/detail.dart';
 import 'package:flutter_application_1/app/page/history/history_screen.dart';
 import 'package:flutter_application_1/app/page/home/home_screen.dart';
+import 'package:flutter_application_1/app/page/page3/page3.dart';
 import 'package:flutter_application_1/app/page/product/product_list.dart';
-import 'package:flutter_application_1/app/route/page3.dart';
+// import 'package:flutter_application_1/app/route/page3.dart';
 import 'package:flutter/material.dart';
 import 'app/page/defaultwidget.dart';
 import 'app/data/sharepre.dart';
@@ -61,8 +62,12 @@ class _MainpageState extends State<Mainpage> {
         }
       case 3:
         {
-          return Detail();
+          return Page3();
         }
+      case 4:
+      {
+        return Detail();
+      }
       default:
         nameWidgets = "None";
         break;
@@ -154,7 +159,7 @@ class _MainpageState extends State<Mainpage> {
               title: const Text('Page3'),
               onTap: () {
                 Navigator.pop(context);
-                _selectedIndex = 0;
+                _selectedIndex = 3;
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const Page3()));
               },
@@ -187,6 +192,10 @@ class _MainpageState extends State<Mainpage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.shop_sharp),
             label: 'Cart',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.blinds_closed_outlined),
+            label: 'Bill',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

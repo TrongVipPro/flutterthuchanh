@@ -279,6 +279,7 @@ class APIRepository {
           'count': products[i].count,
         });
       }
+      print("sending bill data : $list");
       Response res = await api.sendRequest.post('/Order/addBill',
           options: Options(headers: header(token)), data: list);
       if (res.statusCode == 200) {

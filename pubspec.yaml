@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^0.13.3
+
 
 dev_dependencies:
   flutter_test:
@@ -28,5 +30,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/hlphone_logo.png
-    - assets/images/background.jpg
-    - assets/images/cartlist.jpg
+    - assets/images/

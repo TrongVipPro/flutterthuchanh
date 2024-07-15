@@ -1,5 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages
-import 'dart:io';
+// import 'dart:io';
 import 'package:flutter_application_1/app/data/api.dart';
 import 'package:flutter_application_1/app/data/sqlite.dart';
 import 'package:flutter_application_1/app/model/cart.dart';
@@ -9,14 +9,12 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeBuilder extends StatefulWidget {
-  const HomeBuilder({
-    Key? key,
-  }) : super(key: key);
+  const HomeBuilder({Key? key}) : super(key: key);
 
   @override
   State<HomeBuilder> createState() => _HomeBuilderState();
+  
 }
-
 class _HomeBuilderState extends State<HomeBuilder> {
   final DatabaseHelper _databaseService = DatabaseHelper();
 
@@ -28,13 +26,18 @@ class _HomeBuilderState extends State<HomeBuilder> {
   }
 
   Future<void> _onSave(ProductModel pro) async {
-    _databaseService.insertProduct(Cart(
+    Cart cartItem = Cart(
         productID: pro.id,
         name: pro.name,
         des: pro.description,
         price: pro.price,
         img: pro.imageUrl,
-        count: 1));
+        count: 1);
+      print("Sản phẩm : ${cartItem.toJson()}");
+    await _databaseService.insertProduct(cartItem);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Đã thêm ${pro.name} vào giỏ hàng')),
+    );
     setState(() {});
   }
 
@@ -48,11 +51,14 @@ class _HomeBuilderState extends State<HomeBuilder> {
             child: CircularProgressIndicator(),
           );
         }
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Text('Không có sản phẩm nào'));
+        }
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(
             children: [
-              Text("Trang chủ"),
+              const Text("Trang chủ"),
               Expanded(
                 child: ListView.builder(
                   itemCount: snapshot.data!.length,
@@ -88,22 +94,19 @@ class _HomeBuilderState extends State<HomeBuilder> {
               ),
             ),
             const SizedBox(width: 10),
-            /* ảnh ở đây*/
-            // ignore: unnecessary_null_comparison
-            (pro.imageUrl == null ||
-                    pro.imageUrl == '' ||
-                    pro.imageUrl == 'Null')
-                ? SizedBox()
-                : Container(
-                    height: 110,
-                    width: 110,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: NetworkImage(pro.imageUrl),
-                            fit: BoxFit.cover)),
-                    alignment: Alignment.center,
-                    child: Image.network(pro.imageUrl),
+            if (pro.imageUrl != null && pro.imageUrl!.isNotEmpty)
+              Container(
+                height: 110,
+                width: 110,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(pro.imageUrl!),
+                    fit: BoxFit.cover,
                   ),
+                ),
+                alignment: Alignment.center,
+                child: Image.network(pro.imageUrl!),
+              ),
             const SizedBox(width: 10),
             Expanded(
               child: Column(
@@ -125,24 +128,24 @@ class _HomeBuilderState extends State<HomeBuilder> {
                       color: Colors.red,
                     ),
                   ),
-                  // const SizedBox(height: 4.0),
-                  // Text('Category: ${pro.catId}'),
                   const SizedBox(height: 4.0),
                   Text(pro.description),
                 ],
               ),
             ),
             IconButton(
-                onPressed: () async {
-                  _onSave(pro);
-                },
-                icon: const Icon(
-                  Icons.add,
-                  color: Colors.blue,
-                )),
+              onPressed: () async {
+                await _onSave(pro); // Wait for onSave to complete
+              },
+              icon: const Icon(
+                Icons.add,
+                color: Colors.blue,
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 }
+

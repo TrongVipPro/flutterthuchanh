@@ -3,7 +3,7 @@ import 'dart:convert';
 class Cart{
   int productID;
   String name;
-  dynamic price;
+  int price;
   String img;
   String des;
   int count;

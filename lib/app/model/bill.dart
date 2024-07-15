@@ -3,12 +3,14 @@ class BillModel {
   String fullName;
   String dateCreated;
   int total;
+  List<BillDetailModel> items;
 
   BillModel({
     required this.id,
     required this.fullName,
     required this.dateCreated,
     required this.total,
+    required this.items,
   });
 
   factory BillModel.fromJson(Map<String, dynamic> json) => BillModel(
@@ -16,7 +18,18 @@ class BillModel {
         fullName: json["fullName"],
         dateCreated: json["dateCreated"],
         total: json["total"],
+        items: (json['items'] as List)
+            .map((item) => BillDetailModel.fromJson(item))
+            .toList(),
       );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "fullName": fullName,
+        "dateCreated": dateCreated,
+        "total": total,
+        "items": items.map((item) => item.toJson()).toList(),
+      };
 }
 
 class BillDetailModel {
@@ -36,8 +49,7 @@ class BillDetailModel {
     required this.total,
   });
 
-  factory BillDetailModel.fromJson(Map<String, dynamic> json) =>
-      BillDetailModel(
+  factory BillDetailModel.fromJson(Map<String, dynamic> json) => BillDetailModel(
         productId: json["productID"] ?? 0,
         productName: json["productName"] ?? "",
         imageUrl: json["imageURL"] ?? "",
@@ -45,4 +57,15 @@ class BillDetailModel {
         count: json["count"] ?? 0,
         total: json["total"] ?? 0,
       );
+
+  Map<String, dynamic> toJson() => {
+        "productID": productId,
+        "productName": productName,
+        "imageURL": imageUrl,
+        "price": price,
+        "count": count,
+        "total": total,
+      };
 }
+
+
